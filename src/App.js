@@ -33,7 +33,11 @@ function App() {
           }
         </div>
       </div>
-      : <h1>Loading...</h1>
+
+      :
+      <div className="App">
+        <h1>Loading...</h1>
+      </div>
     }
     </>
   );
