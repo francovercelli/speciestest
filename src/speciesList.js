@@ -21,36 +21,37 @@ export default function SpeciesList(props) {
     const [isLoading, setIsLoading] = useState(true);
     const [isLoadingImage, setIsLoadingImage] = useState(true);
 
-    function getImageUrl() {
-        for (const [key, value] of Object.entries(SPECIES_IMAGES)) {
-            if (`${key}` === specieName) {
-                setSpecieImage(`${value}`)
-            }
-            if (specieName === `yoda's species`) {
-                setSpecieImage(SPECIES_IMAGES.yoda);
-            }
+    useEffect(() => {
+        async function getSpecieInformation() {
+            await fetch(props.url)
+                .then((response) => response.json())
+                .then((data) => {
+                    setSpecieInformation(data);
+                    setSpecieName(data.name.toLowerCase());
 
+                })
+                .finally(() => {
+                    setIsLoading(false)
+                })
         }
-        setIsLoadingImage(false)
-    }
-    async function getSpecieInformation() {
-        await fetch(props.url)
-            .then((response) => response.json())
-            .then((data) => {
-                setSpecieInformation(data);
-                setSpecieName(data.name.toLowerCase());
 
-            })
-            .finally(() => {
-                setIsLoading(false)
-            })
-    }
-
-    useEffect(() => {
         getSpecieInformation();
-    }, [])
+    }, [props.url])
 
     useEffect(() => {
+        function getImageUrl() {
+            for (const [key, value] of Object.entries(SPECIES_IMAGES)) {
+                if (`${key}` === specieName) {
+                    setSpecieImage(`${value}`)
+                }
+                if (specieName === `yoda's species`) {
+                    setSpecieImage(SPECIES_IMAGES.yoda);
+                }
+
+            }
+            setIsLoadingImage(false)
+        }
+
         getImageUrl();
     }, [specieName])
 
@@ -65,7 +66,7 @@ export default function SpeciesList(props) {
                 image={specieImage}
                 numFilms={specieInformation.films.length}
                 language={specieInformation.language} />
-            : <h1></h1>
+            : null
         }
         </>
     );
