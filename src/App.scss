@@ -1,0 +1,23 @@
+.App {
+  text-align: center;
+
+  h1 {
+      margin: 20px 0 0;
+  }
+}
+
+.App-species {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 40px;
+}
+
+.container{
+    display: flex;
+    margin: 16px;
+    padding: 16px;
+    text-align: center;
+    width: 300px;
+}

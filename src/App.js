@@ -1,24 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from 'react';
+import './App.scss';
+import SpeciesList from './speciesList';
+
+const API_URL = 'https://swapi.dev/api/films/2/';
 
 function App() {
+  const [species, setSpecies] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  async function getSpecies() {
+    await fetch(API_URL)
+      .then((response) => response.json())
+      .then((data) => setSpecies(data.species))
+      .finally(() => {
+        setIsLoading(false)
+      })
+  }
+
+  useEffect(() => {
+    getSpecies();
+  }, [])
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <> {!isLoading ?
+      <div className="App">
+        <h1>Empire Strikes Back - Species Listing</h1>
+        <div className="App-species" >
+          {species.map(specie => (
+            <SpeciesList key={specie} url={specie} ></SpeciesList>
+          ))
+          }
+        </div>
+      </div>
+      : <h1>Loading...</h1>
+    }
+    </>
   );
 }
 
