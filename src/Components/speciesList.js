@@ -4,7 +4,7 @@ import SpeciesItem from './speciesItem';
 
 const API_URL = 'https://swapi.dev/api/films/2/';
 
-export default function SpeciesList(props) {
+export default function SpeciesList() {
     const [species, setSpecies] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
