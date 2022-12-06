@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import Species from './Species';
+import Species from '../Species';
 
 const SPECIES_IMAGES = {
     droid:
@@ -14,7 +14,9 @@ const SPECIES_IMAGES = {
     yoda: 'https://static.wikia.nocookie.net/starwars/images/d/d6/Yoda_SWSB.png',
 };
 
-export default function SpeciesList(props) {
+const YODA_NAME = `yoda's species`;
+
+export default function SpeciesItem(props) {
     const [specieInformation, setSpecieInformation] = useState(null);
     const [specieImage, setSpecieImage] = useState("");
     const [specieName, setSpecieName] = useState("");
@@ -44,7 +46,7 @@ export default function SpeciesList(props) {
                 if (`${key}` === specieName) {
                     setSpecieImage(`${value}`)
                 }
-                if (specieName === `yoda's species`) {
+                if (specieName === YODA_NAME) {
                     setSpecieImage(SPECIES_IMAGES.yoda);
                 }
 
