@@ -8,35 +8,35 @@ export default function SpeciesList() {
     const [species, setSpecies] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    async function getSpecies() {
-        await fetch(API_URL)
-            .then((response) => response.json())
-            .then((data) => setSpecies(data.species))
-            .finally(() => {
-                setIsLoading(false)
-            })
-    }
-
     useEffect(() => {
+        function getSpecies() {
+            fetch(API_URL)
+                .then((response) => response.json())
+                .then((data) => setSpecies(data.species))
+                .finally(() => {
+                    setIsLoading(false)
+                })
+        }
+
         getSpecies();
     }, [])
 
-    return (<> {!isLoading ?
-        <div className="App">
-            <h1>Empire Strikes Back - Species Listing</h1>
-            <div className="App-species" >
-                {species.map(specie => (
-                    <SpeciesItem key={specie} url={specie} ></SpeciesItem>
-                ))
-                }
+    return (
+        <> {!isLoading ?
+            <div className="App">
+                <h1>Empire Strikes Back - Species Listing</h1>
+                <div className="App-species" >
+                    {species.map(specie => (
+                        <SpeciesItem key={specie} url={specie} ></SpeciesItem>
+                    ))
+                    }
+                </div>
             </div>
-        </div>
-
-        :
-        <div className="App">
-            <h1>Loading...</h1>
-        </div>
-    }
-    </>
+            :
+            <div className="App">
+                <h1>Loading...</h1>
+            </div>
+        }
+        </>
     );
 }

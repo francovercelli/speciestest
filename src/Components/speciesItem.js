@@ -24,13 +24,12 @@ export default function SpeciesItem(props) {
     const [isLoadingImage, setIsLoadingImage] = useState(true);
 
     useEffect(() => {
-        async function getSpecieInformation() {
-            await fetch(props.url)
+        function getSpecieInformation() {
+            fetch(props.url)
                 .then((response) => response.json())
                 .then((data) => {
                     setSpecieInformation(data);
                     setSpecieName(data.name.toLowerCase());
-
                 })
                 .finally(() => {
                     setIsLoading(false)
@@ -49,14 +48,12 @@ export default function SpeciesItem(props) {
                 if (specieName === YODA_NAME) {
                     setSpecieImage(SPECIES_IMAGES.yoda);
                 }
-
             }
             setIsLoadingImage(false)
         }
 
         getImageUrl();
     }, [specieName])
-
 
     return (
         <> {!isLoadingImage && !isLoading ?
